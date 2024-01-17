@@ -1,1 +1,1 @@
-# learnjs
+learning js via freeCodeCamp
