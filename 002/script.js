@@ -19,10 +19,33 @@ function isInvalidInput(str) {
 
 function addEntry() {
     let targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
-    let entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length;
+    let entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
     const HTMLString = `
         <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
         <input type="text" placeholder="Name" id="${entryDropdown.value}-${entryNumber}-name">
         <label for="${entryDropdown.value}-${entryNumber}-calories">Entry ${entryNumber} Calories</label>
         <input type="number" min="0" placeholder="Calories" id="${entryDropdown.value}-${entryNumber}-calories">`;
+    targetInputContainer.insertAdjacentHTML("beforeend", HTMLString);
+}
+
+addEntryButton.addEventListener("click", addEntry);
+
+function getCaloriesFromInputs(list) {
+    let calories = 0;
+
+    for (let i = 0; i < list.length; i++) {
+        const currVal = cleanInputString(list[i].value);
+        const invalidInputMatch = isInvalidInput(currVal);
+        if (invalidInputMatch) {
+            alert(`Invalid Input: ${invalidInputMatch[0]}`);
+            isError = true;
+            return null;
+        }
+        calories += Number(currVal);
+    }
+    return calories;
+}
+
+function calculateCalories(e) {
+
 }
